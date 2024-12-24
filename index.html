@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Merry Christmas Surprise</title>
+    <title>Merry CHRISTmas</title>
     <style>
         body {
             margin: 0;
@@ -20,20 +20,29 @@
             height: 100%;
             border: none;
         }
-        .overlay {
-            position: absolute;
-            top: 0;
+        .cookie-consent {
+            position: fixed;
+            bottom: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.7);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.9);
             color: #fff;
-            font-size: 2em;
-            cursor: pointer;
+            text-align: center;
+            padding: 20px;
             z-index: 1000;
+        }
+        .cookie-consent button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #28a745;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .cookie-consent button:hover {
+            background-color: #218838;
         }
         .message {
             height: 100vh;
@@ -83,13 +92,12 @@
             });
         }
 
-        // Play video with sound
-        function playVideo() {
+        // Start Video on Cookie Consent
+        function acceptCookies() {
+            document.getElementById('cookie-consent').style.display = 'none';
             if (player) {
                 player.playVideo();
             }
-            document.getElementById('overlay').style.display = 'none';
-
             setTimeout(() => {
                 window.scrollTo({
                     top: window.innerHeight,
@@ -101,12 +109,16 @@
     <script src="https://www.youtube.com/iframe_api"></script>
 </head>
 <body>
-    <div class="overlay" id="overlay" onclick="playVideo()">
-        Click to Play with Sound 🎵
-    </div>
     <div class="video-container">
         <div id="videoFrame"></div>
     </div>
+    
+    <!-- Cookie Consent Popup -->
+    <div class="cookie-consent" id="cookie-consent">
+        <p>We use cookies to ensure you get the best experience on our website.</p>
+        <button onclick="acceptCookies()">Accept Cookies</button>
+    </div>
+
     <div class="message">
         <p>Merry <strong>CHRIStmas</strong></p>
         <p><small>Hopefully you can use this towards something cool</small></p>
