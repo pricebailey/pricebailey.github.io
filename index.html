@@ -50,16 +50,16 @@
             animation: fadeInGrow 3s ease-out forwards;
         }
         .message p {
-            margin: 20px 0; /* Add vertical spacing between paragraphs */
-            line-height: 1.5; /* Improve readability */
+            margin: 20px 0;
+            line-height: 1.5;
         }
         .message small {
             font-size: 0.5em;
-            display: block; /* Ensure each small starts on a new line */
-            margin-top: 10px; /* Add spacing between each line */
+            display: block;
+            margin-top: 10px;
         }
         .message div {
-            margin-top: 30px; /* Space above the final div */
+            margin-top: 30px;
         }
         @keyframes fadeInGrow {
             to {
@@ -69,11 +69,27 @@
         }
     </style>
     <script>
+        let player;
+
+        // Load YouTube IFrame API
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('videoFrame', {
+                videoId: 'dQw4w9WgXcQ',
+                playerVars: {
+                    autoplay: 0,
+                    controls: 1,
+                    rel: 0
+                }
+            });
+        }
+
+        // Play video with sound
         function playVideo() {
-            const iframe = document.getElementById('videoFrame');
-            iframe.src += "&autoplay=1";
+            if (player) {
+                player.playVideo();
+            }
             document.getElementById('overlay').style.display = 'none';
-            
+
             setTimeout(() => {
                 window.scrollTo({
                     top: window.innerHeight,
@@ -82,13 +98,14 @@
             }, 10000); // 10 seconds delay
         }
     </script>
+    <script src="https://www.youtube.com/iframe_api"></script>
 </head>
 <body>
     <div class="overlay" id="overlay" onclick="playVideo()">
         Click to Play with Sound 🎵
     </div>
     <div class="video-container">
-        <iframe id="videoFrame" src="https://www.youtube.com/embed/dQw4w9WgXcQ" allow="autoplay; fullscreen" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div id="videoFrame"></div>
     </div>
     <div class="message">
         <p>Merry <strong>CHRIStmas</strong></p>
