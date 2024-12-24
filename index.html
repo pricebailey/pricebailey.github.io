@@ -48,18 +48,18 @@
             opacity: 0;
             transform: scale(0.8);
             animation: fadeInGrow 3s ease-out forwards;
-            gap: 30px; /* Spacing between each child */
         }
         .message p {
-            margin: 0;
+            margin: 20px 0; /* Add vertical spacing between paragraphs */
+            line-height: 1.5; /* Improve readability */
         }
         .message small {
             font-size: 0.5em;
-            display: block; /* Ensures each small tag starts on a new line */
-            margin-top: 10px; /* Adds spacing specifically for small text */
+            display: block; /* Ensure each small starts on a new line */
+            margin-top: 10px; /* Add spacing between each line */
         }
         .message div {
-            margin-top: 20px; /* Adds spacing before the final div */
+            margin-top: 30px; /* Space above the final div */
         }
         @keyframes fadeInGrow {
             to {
@@ -94,7 +94,7 @@
         <p>Merry <strong>CHRIStmas</strong></p>
         <p><small>Hopefully you can use this towards something cool</small></p>
         <div>
-            <small>For aescripts.com</small><br>
+            <small>For aescripts.com</small>
             <small>GIFT-7795-5UOSH-GWQU</small>
         </div>
     </div>
