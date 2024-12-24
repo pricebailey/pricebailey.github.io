@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -20,17 +20,46 @@
             height: 100%;
             border: none;
         }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 2em;
+            cursor: pointer;
+            z-index: 1000;
+        }
         .message {
             height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             background-color: #000;
             color: #fff;
             font-size: 3em;
+            text-align: center;
             opacity: 0;
             transform: scale(0.8);
             animation: fadeInGrow 3s ease-out forwards;
+            gap: 30px; /* Spacing between each child */
+        }
+        .message p {
+            margin: 0;
+        }
+        .message small {
+            font-size: 0.5em;
+            display: block; /* Ensures each small tag starts on a new line */
+            margin-top: 10px; /* Adds spacing specifically for small text */
+        }
+        .message div {
+            margin-top: 20px; /* Adds spacing before the final div */
         }
         @keyframes fadeInGrow {
             to {
@@ -40,28 +69,34 @@
         }
     </style>
     <script>
-        window.onload = function() {
+        function playVideo() {
+            const iframe = document.getElementById('videoFrame');
+            iframe.src += "&autoplay=1";
+            document.getElementById('overlay').style.display = 'none';
+            
             setTimeout(() => {
                 window.scrollTo({
                     top: window.innerHeight,
                     behavior: 'smooth'
                 });
             }, 10000); // 10 seconds delay
-        };
+        }
     </script>
 </head>
 <body>
+    <div class="overlay" id="overlay" onclick="playVideo()">
+        Click to Play with Sound 🎵
+    </div>
     <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" allow="autoplay; fullscreen" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe id="videoFrame" src="https://www.youtube.com/embed/dQw4w9WgXcQ" allow="autoplay; fullscreen" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
     <div class="message">
-        <p> Merry <strong>CHRIStmas</strong><br></p><br>
-       <p><small>Hopefully you can use this towards something cool</small><br></p>
-        
+        <p>Merry <strong>CHRIStmas</strong></p>
+        <p><small>Hopefully you can use this towards something cool</small></p>
         <div>
-        <small>For aescripts.com<br>GIFT-7795-5UOSH-GWQU</small>
+            <small>For aescripts.com</small><br>
+            <small>GIFT-7795-5UOSH-GWQU</small>
         </div>
     </div>
 </body>
 </html>
-
