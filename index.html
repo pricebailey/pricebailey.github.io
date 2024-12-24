@@ -21,6 +21,7 @@
             height: 100%;
             border: none;
         }
+        /* Full-Screen Cookie Consent */
         .cookie-consent {
             position: fixed;
             top: 0;
@@ -83,6 +84,10 @@
                 transform: scale(1);
             }
         }
+        /* Hide content behind the cookie consent */
+        .hidden-content {
+            visibility: hidden;
+        }
     </style>
     <script>
         let player;
@@ -101,8 +106,12 @@
 
         // Start Video on Cookie Consent
         function acceptCookies() {
+            // Hide cookie consent prompt
             document.getElementById('cookie-consent').style.display = 'none';
+
+            // Show video and other content
             document.querySelector('.video-container').style.display = 'block';
+            document.querySelector('.message').style.visibility = 'visible';
 
             if (player) {
                 player.playVideo();
@@ -123,7 +132,7 @@
     <div class="video-container">
         <div id="videoFrame"></div>
     </div>
-    
+
     <!-- Cookie Consent Popup (Full screen) -->
     <div class="cookie-consent" id="cookie-consent">
         <div>
@@ -132,8 +141,8 @@
         </div>
     </div>
 
-    <!-- Final Message -->
-    <div class="message">
+    <!-- Final Message (Initially hidden) -->
+    <div class="message hidden-content">
         <p>Merry <strong>CHRIStmas</strong></p>
         <p><small>Hopefully you can use this towards something cool</small></p>
         <div>
