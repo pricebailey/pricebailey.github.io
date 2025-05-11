@@ -10,7 +10,7 @@
             margin: 0;
             overflow: hidden;
             font-family: Arial, sans-serif;
-            background-color: black; /* Ensure black background */
+            background-color: black;
             color: white;
         }
 
@@ -18,7 +18,7 @@
             width: 100vw;
             height: 100vh;
             overflow: hidden;
-            display: none; /* Hide video initially */
+            display: none;
         }
 
         iframe {
@@ -27,14 +27,13 @@
             border: none;
         }
 
-        /* Full-Screen Cookie Consent */
         .cookie-consent {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9); /* Full-screen with opacity */
+            background: rgba(0, 0, 0, 0.9);
             color: #fff;
             text-align: center;
             display: flex;
@@ -62,7 +61,6 @@
             background-color: #218838;
         }
 
-        /* Message styles */
         .message {
             height: 100vh;
             display: flex;
@@ -73,17 +71,16 @@
             color: white;
             font-size: 3em;
             text-align: center;
-            opacity: 0; /* Hide message initially */
-            visibility: hidden; /* Hide it behind cookie consent */
+            opacity: 0;
+            visibility: hidden;
         }
 
-        /* GIFs */
         .dancing-dog, .additional-gif {
             max-width: 200px;
             display: none;
             opacity: 0;
             transform: translateY(20px);
-            position: absolute; /* Position gifs randomly */
+            position: absolute;
             transition: opacity 1s ease, transform 0.5s ease;
         }
 
@@ -108,7 +105,6 @@
             margin-top: 30px;
         }
 
-        /* Hide content behind the cookie consent */
         .hidden-content {
             visibility: hidden;
         }
@@ -116,7 +112,6 @@
     <script>
         let player;
 
-        // Load YouTube IFrame API
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('videoFrame', {
                 videoId: 'dQw4w9WgXcQ',
@@ -128,14 +123,21 @@
             });
         }
 
-        // Get random positions for gifs
+        // Responsive center-based random position
         function getRandomPosition() {
-            const x = Math.random() * window.innerWidth;
-            const y = Math.random() * window.innerHeight;
-            return { x, y };
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+
+            const offsetX = (Math.random() - 0.5) * window.innerWidth * 0.4;
+            const offsetY = (Math.random() - 0.5) * window.innerHeight * 0.4;
+
+            return { x: centerX + offsetX, y: centerY + offsetY };
         }
 
-        // Start Video on Cookie Consent
+        function getRandomRotation() {
+            return (Math.random() - 0.5) * 30; // -15 to +15 degrees
+        }
+
         function acceptCookies() {
             document.getElementById('cookie-consent').style.display = 'none';
             document.querySelector('.video-container').style.display = 'block';
@@ -150,14 +152,11 @@
                     behavior: 'smooth'
                 });
 
-                // Wait for scroll to finish
                 setTimeout(() => {
-                    // Show message and trigger animation
                     const message = document.getElementById('message');
-                    message.style.visibility = 'visible'; // Make message visible
-                    message.style.opacity = 1; // Make message visible immediately
+                    message.style.visibility = 'visible';
+                    message.style.opacity = 1;
 
-                    // Start confetti
                     const duration = 3000;
                     const interval = 300;
                     const start = Date.now();
@@ -171,39 +170,39 @@
                         if (Date.now() - start > duration) {
                             clearInterval(loop);
 
-                            // Show dancing dog with animation
                             const dog = document.getElementById('dancing-dog');
                             dog.classList.add('show');
 
-                            // Add more gifs after some time, staggering them
                             setTimeout(() => {
-                                // Add additional gifs at random positions
-                                const gifCount = 5; // Number of additional gifs
+                                const gifCount = 5;
                                 const gifs = [
-                                    "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExYjl2YTNzaW8ybm1sNHd1aHB3NnppaGp0cHpid2t6ZGRvZ2t6Y29ieiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/sphmLQaP0wAdG/giphy.webp", // Dog
-                                    "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmRybDAzY2pnZTBueXMwZWs5eWVucGpudXVudzFhZzZsOW56dHUxcSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/pFA8qeU4lopSFPeO8l/giphy.gif", // Cat
-                                    "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExYWRveGh2cmh2YzJ1M29qcG1vZDdjMjFraGdteTBqNW8xYjU4YnF6ayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1d7F9xyq6j7C1ojbC5/giphy.gif", // Penguin
-                                    "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExY3ZyenppdmY0NnRlYzVnejJ5NzdlcmxiZ3BpbjVhMmNjODVnbXljMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/VpysUTI25mTlK/giphy.gif", // Baby Dancing
-                                    "https://media1.tenor.com/m/82Rr2PPBCtIAAAAd/cat-jam-cat.gif"  // Spinning Cat
+                                    "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExYjl2YTNzaW8ybm1sNHd1aHB3NnppaGp0cHpid2t6ZGRvZ2t6Y29ieiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/sphmLQaP0wAdG/giphy.webp",
+                                    "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmRybDAzY2pnZTBueXMwZWs5eWVucGpudXVudzFhZzZsOW56dHUxcSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/pFA8qeU4lopSFPeO8l/giphy.gif",
+                                    "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExYWRveGh2cmh2YzJ1M29qcG1vZDdjMjFraGdteTBqNW8xYjU4YnF6ayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1d7F9xyq6j7C1ojbC5/giphy.gif",
+                                    "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExY3ZyenppdmY0NnRlYzVnejJ5NzdlcmxiZ3BpbjVhMmNjODVnbXljMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/VpysUTI25mTlK/giphy.gif",
+                                    "https://media1.tenor.com/m/82Rr2PPBCtIAAAAd/cat-jam-cat.gif"
                                 ];
 
                                 for (let i = 0; i < gifCount; i++) {
                                     const gif = document.createElement('img');
-                                    gif.src = gifs[Math.floor(Math.random() * gifs.length)]; // Random gif
+                                    gif.src = gifs[Math.floor(Math.random() * gifs.length)];
                                     gif.alt = "Random Gif";
                                     gif.classList.add('additional-gif');
+
                                     const { x, y } = getRandomPosition();
+                                    const rotation = getRandomRotation();
+
                                     gif.style.left = `${x}px`;
                                     gif.style.top = `${y}px`;
+                                    gif.style.transform += ` rotate(${rotation}deg)`;
 
                                     document.body.appendChild(gif);
 
-                                    // Stagger the appearance of the gifs
                                     setTimeout(() => {
                                         gif.classList.add('show');
-                                    }, Math.random() * 1000 + 1000); // Random delay for each gif
+                                    }, Math.random() * 1000 + 1000);
                                 }
-                            }, 2000); // Delay before showing additional gifs
+                            }, 2000);
                         }
                     }, interval);
                 }, 1000);
@@ -213,12 +212,10 @@
     <script src="https://www.youtube.com/iframe_api"></script>
 </head>
 <body>
-    <!-- Video Container (Hidden initially) -->
     <div class="video-container">
         <div id="videoFrame"></div>
     </div>
 
-    <!-- Cookie Consent Popup (Full screen) -->
     <div class="cookie-consent" id="cookie-consent">
         <div>
             <p>Click here to accept the terms and conditions of your Mother's Day message.</p>
@@ -226,7 +223,6 @@
         </div>
     </div>
 
-    <!-- Final Message (Initially hidden behind the consent) -->
     <div class="message" id="message">
         <p><strong>Happy Mother's Day</strong></p>
         <p><small></small></p>
