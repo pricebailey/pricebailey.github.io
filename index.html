@@ -119,16 +119,29 @@
             }
 
             setTimeout(() => {
-                window.scrollTo({
-                    top: window.innerHeight,
-                    behavior: 'smooth'
-                });
-            }, 5000); // 10 seconds delay
+        window.scrollTo({
+            top: window.innerHeight,
+            behavior: 'smooth'
+        });
 
-         party.confetti(document.body, {
-        count: 100,
-        spread: 100,
-    });
+        // Wait a moment for scroll to finish
+        setTimeout(() => {
+            const duration = 3000; // Confetti loop duration (3 seconds)
+            const interval = 300;  // Time between bursts
+            const start = Date.now();
+
+            const loop = setInterval(() => {
+                party.confetti(document.body, {
+                    count: 40,
+                    spread: 80,
+                });
+
+                if (Date.now() - start > duration) {
+                    clearInterval(loop);
+                }
+            }, interval);
+        }, 800); // Delay to match scroll time
+    }, 5000); // Initial delay before scroll
          
         }
     </script>
