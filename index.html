@@ -105,41 +105,25 @@
         }
 
         // Start Video on Cookie Consent
-       function acceptCookies() {
-    // Hide cookie consent prompt
-    document.getElementById('cookie-consent').style.display = 'none';
+     function acceptCookies() {
+            // Hide cookie consent prompt
+            document.getElementById('cookie-consent').style.display = 'none';
 
-    // Show video and other content
-    document.querySelector('.video-container').style.display = 'block';
-    document.querySelector('.message').style.visibility = 'visible';
+            // Show video and other content
+            document.querySelector('.video-container').style.display = 'block';
+            document.querySelector('.message').style.visibility = 'visible';
 
-    // Confetti from left
-    confetti({
-        particleCount: 50,
-        angle: 60,
-        spread: 55,
-        origin: { x: 0, y: 0.5 }
-    });
+            if (player) {
+                player.playVideo();
+            }
 
-    // Confetti from right
-    confetti({
-        particleCount: 50,
-        angle: 120,
-        spread: 55,
-        origin: { x: 1, y: 0.5 }
-    });
-
-    if (player) {
-        player.playVideo();
-    }
-
-    setTimeout(() => {
-        window.scrollTo({
-            top: window.innerHeight,
-            behavior: 'smooth'
-        });
-    }, 5000);
-}
+            setTimeout(() => {
+                window.scrollTo({
+                    top: window.innerHeight,
+                    behavior: 'smooth'
+                });
+            }, 2000); // 10 seconds delay
+        }
     </script>
     <script src="https://www.youtube.com/iframe_api"></script>
 </head>
