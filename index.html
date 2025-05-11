@@ -196,4 +196,68 @@
               clearInterval(loop);
 
               const gifs = [
-                "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExYjl2YTNzaW8ybm1sNHd1aHB3Nnppa
+                "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExYjl2YTNzaW8ybm1sNHd1aHB3NnppaGp0cHpid2t6ZGRvZ2t6Y29ieiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/sphmLQaP0wAdG/giphy.webp",
+                "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmRybDAzY2pnZTBueXMwZWs5eWVucGpudXVudzFhZzZsOW56dHUxcSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/pFA8qeU4lopSFPeO8l/giphy.gif",
+                "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExYWRveGh2cmh2YzJ1M29qcG1vZDdjMjFraGdteTBqNW8xYjU4YnF6ayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1d7F9xyq6j7C1ojbC5/giphy.gif",
+                "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExY3ZyenppdmY0NnRlYzVnejJ5NzdlcmxiZ3BpbjVhMmNjODVnbXljMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/VpysUTI25mTlK/giphy.gif",
+                "https://media1.tenor.com/m/82Rr2PPBCtIAAAAd/cat-jam-cat.gif",
+                "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExcjBlajJ0NXNjeWJqajVhZDIwYXlrYWFidXZtOWgydXBzb2JoYXJ5dyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/5GoVLqeAOo6PK/giphy.gif"
+              ];
+
+              const placedGifPositions = [];
+
+              function getRandomNonOverlappingPosition(minDistance = 150, maxAttempts = 20) {
+                let attempt = 0, x, y;
+
+                while (attempt < maxAttempts) {
+                  x = Math.random() * (window.innerWidth - 200); // Prevent off-screen
+                  y = Math.random() * (window.innerHeight - 200); // Prevent off-screen
+
+                  let overlapping = placedGifPositions.some(pos => {
+                    const dx = pos.x - x;
+                    const dy = pos.y - y;
+                    return Math.sqrt(dx * dx + dy * dy) < minDistance;
+                  });
+
+                  if (!overlapping) {
+                    placedGifPositions.push({ x, y });
+                    return { x, y };
+                  }
+                  attempt++;
+                }
+
+                placedGifPositions.push({ x, y });
+                return { x, y };
+              }
+
+              gifs.forEach((src, i) => {
+                const img = document.createElement('img');
+                img.src = src;
+                img.alt = "Floating Gif";
+                img.className = 'floating-gif';
+
+                const { x, y } = getRandomNonOverlappingPosition();
+
+                const rotation = (Math.random() * 30 - 15).toFixed(2); // -15 to +15 deg
+
+                img.style.left = `${x}px`;
+                img.style.top = `${y}px`;
+                img.style.setProperty('--rotation', `${rotation}deg`);
+
+                document.getElementById('message').appendChild(img);
+
+                // Added delay to space out GIF appearances
+                const delay = 1000 + i * 1500 + Math.random() * 500;
+
+                setTimeout(() => {
+                  img.classList.add('show');
+                }, delay);
+              });
+            }
+          }, interval);
+        }, 1000);
+      }, 5000);
+    }
+  </script>
+</body>
+</html>
