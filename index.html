@@ -214,8 +214,8 @@
 
                 document.getElementById('message').appendChild(img);
 
-                // Random delay for more natural appearance
-                const delay = 400 + i * 400 + Math.random() * 300;
+                // Added more delay (around 0.5 second) between each GIF's appearance
+                const delay = 400 + i * 700 + Math.random() * 500;
 
                 setTimeout(() => {
                   img.classList.add('show');
