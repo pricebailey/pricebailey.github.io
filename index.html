@@ -11,7 +11,7 @@
   <style>
     body {
       margin: 0;
-      overflow-x: hidden;
+      overflow: hidden;
       background-color: black;
       color: white;
       font-family: 'Roboto', sans-serif;
@@ -58,7 +58,7 @@
 
     .floating-gif {
       position: absolute;
-      max-width: 80vw;
+      max-width: 30vw; /* Further reducing max width to fit smaller */
       width: auto;
       height: auto;
       border-radius: 10px;
@@ -70,7 +70,7 @@
 
     .floating-gif.show {
       opacity: 1;
-      transform: translateY(0) scale(1.15) rotate(var(--rotation, 0deg));
+      transform: translateY(0) scale(1) rotate(var(--rotation, 0deg));
     }
 
     .cookie-consent button {
@@ -116,6 +116,10 @@
       .message p {
         font-size: 3.5rem;
       }
+
+      .floating-gif {
+        max-width: 40vw; /* Increase size slightly for tablets */
+      }
     }
 
     @media (max-width: 480px) {
@@ -124,7 +128,7 @@
       }
 
       .floating-gif {
-        max-width: 65vw;
+        max-width: 50vw; /* Larger GIFs on smaller screens but contained */
       }
     }
   </style>
@@ -192,68 +196,4 @@
               clearInterval(loop);
 
               const gifs = [
-                "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExYjl2YTNzaW8ybm1sNHd1aHB3NnppaGp0cHpid2t6ZGRvZ2t6Y29ieiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/sphmLQaP0wAdG/giphy.webp",
-                "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmRybDAzY2pnZTBueXMwZWs5eWVucGpudXVudzFhZzZsOW56dHUxcSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/pFA8qeU4lopSFPeO8l/giphy.gif",
-                "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExYWRveGh2cmh2YzJ1M29qcG1vZDdjMjFraGdteTBqNW8xYjU4YnF6ayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1d7F9xyq6j7C1ojbC5/giphy.gif",
-                "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExY3ZyenppdmY0NnRlYzVnejJ5NzdlcmxiZ3BpbjVhMmNjODVnbXljMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/VpysUTI25mTlK/giphy.gif",
-                "https://media1.tenor.com/m/82Rr2PPBCtIAAAAd/cat-jam-cat.gif",
-                "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExcjBlajJ0NXNjeWJqajVhZDIwYXlrYWFidXZtOWgydXBzb2JoYXJ5dyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/5GoVLqeAOo6PK/giphy.gif"
-              ];
-
-              const placedGifPositions = [];
-
-              function getRandomNonOverlappingPosition(minDistance = 200, maxAttempts = 20) {
-                let attempt = 0, x, y;
-
-                while (attempt < maxAttempts) {
-                  x = window.innerWidth / 2 + (Math.random() - 0.5) * window.innerWidth * 0.6;
-                  y = window.innerHeight / 2 + (Math.random() - 0.5) * window.innerHeight * 0.6;
-
-                  let overlapping = placedGifPositions.some(pos => {
-                    const dx = pos.x - x;
-                    const dy = pos.y - y;
-                    return Math.sqrt(dx * dx + dy * dy) < minDistance;
-                  });
-
-                  if (!overlapping) {
-                    placedGifPositions.push({ x, y });
-                    return { x, y };
-                  }
-                  attempt++;
-                }
-
-                placedGifPositions.push({ x, y });
-                return { x, y };
-              }
-
-              gifs.forEach((src, i) => {
-                const img = document.createElement('img');
-                img.src = src;
-                img.alt = "Floating Gif";
-                img.className = 'floating-gif';
-
-                const { x, y } = getRandomNonOverlappingPosition();
-
-                const rotation = (Math.random() * 30 - 15).toFixed(2); // -15 to +15 deg
-
-                img.style.left = `${x}px`;
-                img.style.top = `${y}px`;
-                img.style.setProperty('--rotation', `${rotation}deg`);
-
-                document.getElementById('message').appendChild(img);
-
-                // Added more delay (around 1.5 to 2 seconds) between each GIF's appearance
-                const delay = 1000 + i * 2000 + Math.random() * 800;
-
-                setTimeout(() => {
-                  img.classList.add('show');
-                }, delay);
-              });
-            }
-          }, interval);
-        }, 1000);
-      }, 5000);
-    }
-  </script>
-</body>
-</html>
+                "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExYjl2YTNzaW8ybm1sNHd1aHB3Nnppa
