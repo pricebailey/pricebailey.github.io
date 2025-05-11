@@ -54,38 +54,38 @@
             background-color: #218838;
         }
       .message {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #000;
-    color: #fff;
-    font-size: 3em;
-    text-align: center;
-    opacity: 0;
-    transform: scale(0.8);
-    transition: opacity 1s ease, transform 1s ease;
-}
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #000;
+            color: #fff;
+            font-size: 3em;
+            text-align: center;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 1s ease, transform 1s ease;
+        }
 
         #dancing-dog {
-    max-width: 300px;
-    display: none;
-    margin-top: 40px;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 1s ease, transform 0.5s ease;
-}
+            max-width: 300px;
+            display: none;
+            margin-top: 40px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease, transform 0.5s ease;
+        }
 
-#dancing-dog.show {
-    display: block;
-    opacity: 1;
-    transform: translateY(0);
-}
+        #dancing-dog.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-.message.show {
-    animation: fadeInBounce 3s ease-out forwards;
-}
+        .message.show {
+            animation: fadeInBounce 3s ease-out forwards;
+        }
         .message p {
             margin: 20px 0;
             line-height: 1.5;
@@ -98,29 +98,23 @@
         .message div {
             margin-top: 30px;
         }
-        @keyframes fadeInGrow {
-            to {
+        @keyframes fadeInBounce {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+                background-color: #000;
+            }
+            60% {
                 opacity: 1;
+                transform: scale(1.1);
+            }
+            80% {
+                transform: scale(0.95);
+            }
+            100% {
                 transform: scale(1);
             }
         }
-
-        @keyframes fadeInBounce {
-    0% {
-        opacity: 0;
-        transform: scale(0.8);
-    }
-    60% {
-        opacity: 1;
-        transform: scale(1.1);
-    }
-    80% {
-        transform: scale(0.95);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
         /* Hide content behind the cookie consent */
         .hidden-content {
             visibility: hidden;
@@ -142,49 +136,49 @@
         }
 
         // Start Video on Cookie Consent
-    function acceptCookies() {
-    document.getElementById('cookie-consent').style.display = 'none';
-    document.querySelector('.video-container').style.display = 'block';
+        function acceptCookies() {
+            document.getElementById('cookie-consent').style.display = 'none';
+            document.querySelector('.video-container').style.display = 'block';
 
-    if (player) {
-        player.playVideo();
-    }
+            if (player) {
+                player.playVideo();
+            }
 
-    setTimeout(() => {
-        window.scrollTo({
-            top: window.innerHeight,
-            behavior: 'smooth'
-        });
-
-        // Wait for scroll to finish
-        setTimeout(() => {
-            // Show message and trigger animation
-            const message = document.getElementById('message');
-            message.classList.add('show');
-
-            // Start confetti
-            const duration = 3000;
-            const interval = 300;
-            const start = Date.now();
-
-            const loop = setInterval(() => {
-                party.confetti(document.body, {
-                    count: 40,
-                    spread: 80,
+            setTimeout(() => {
+                window.scrollTo({
+                    top: window.innerHeight,
+                    behavior: 'smooth'
                 });
 
-                if (Date.now() - start > duration) {
-                    clearInterval(loop);
+                // Wait for scroll to finish
+                setTimeout(() => {
+                    // Show message and trigger animation
+                    const message = document.getElementById('message');
+                    message.classList.add('show');
+                    document.body.style.overflow = 'hidden'; // Disable scrolling
 
-                    // Show dancing dog with animation
-                    const dog = document.getElementById('dancing-dog');
-                    dog.classList.add('show');
-                }
-            }, interval);
-        }, 1000);
-    }, 5000);
-}
-        
+                    // Start confetti
+                    const duration = 3000;
+                    const interval = 300;
+                    const start = Date.now();
+
+                    const loop = setInterval(() => {
+                        party.confetti(document.body, {
+                            count: 40,
+                            spread: 80,
+                        });
+
+                        if (Date.now() - start > duration) {
+                            clearInterval(loop);
+
+                            // Show dancing dog with animation
+                            const dog = document.getElementById('dancing-dog');
+                            dog.classList.add('show');
+                        }
+                    }, interval);
+                }, 1000);
+            }, 5000);
+        }
     </script>
     <script src="https://www.youtube.com/iframe_api"></script>
 </head>
@@ -203,16 +197,12 @@
     </div>
 
     <!-- Final Message (Initially hidden) -->
-  <div class="message" id="message">
-    <p><strong>Happy Mother's Day</strong></p>
-    <p><small></small></p>
-    <div>
-        <img id="dancing-dog" src="https://media.giphy.com/media/3o6Zt481isNVuQI1l6/giphy.gif" 
-             alt="Dancing Dog" />
+    <div class="message" id="message">
+        <p><strong>Happy Mother's Day</strong></p>
+        <p><small></small></p>
+        <div>
+            <img id="dancing-dog" src="https://media.giphy.com/media/5GoVLqeAOo6PK/giphy.gif" alt="Dancing Dog" />
+        </div>
     </div>
-</div>
-
-</div>
-<script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
 </body>
 </html>
