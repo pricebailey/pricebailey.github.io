@@ -77,17 +77,17 @@
             visibility: hidden; /* Hide it behind cookie consent */
         }
 
-        #dancing-dog {
-            max-width: 300px;
+        /* GIFs */
+        .dancing-dog, .additional-gif {
+            max-width: 200px;
             display: none;
-            margin-top: 40px;
             opacity: 0;
             transform: translateY(20px);
-            position: absolute; /* Position it absolutely to avoid shifting text */
+            position: absolute; /* Position gifs randomly */
             transition: opacity 1s ease, transform 0.5s ease;
         }
 
-        #dancing-dog.show {
+        .dancing-dog.show, .additional-gif.show {
             display: block;
             opacity: 1;
             transform: translateY(0);
@@ -126,6 +126,13 @@
                     rel: 0
                 }
             });
+        }
+
+        // Get random positions for gifs
+        function getRandomPosition() {
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight;
+            return { x, y };
         }
 
         // Start Video on Cookie Consent
@@ -167,10 +174,40 @@
                             // Show dancing dog with animation
                             const dog = document.getElementById('dancing-dog');
                             dog.classList.add('show');
+
+                            // Add more gifs after some time, staggering them
+                            setTimeout(() => {
+                                // Add additional gifs at random positions
+                                const gifCount = 5; // Number of additional gifs
+                                const gifs = [
+                                    "https://media.giphy.com/media/3o6Zt481isNVuQI1l6/giphy.gif", // Dog
+                                    "https://media.giphy.com/media/l4pTg1SbVxuNQO8aA/giphy.gif", // Cat
+                                    "https://media.giphy.com/media/xTkcEQJ7nYBG8vQm8g/giphy.gif", // Penguin
+                                    "https://media.giphy.com/media/3o85xIhpH8ZnMiXBFA/giphy.gif", // Baby Dancing
+                                    "https://media.giphy.com/media/l1J9gLwzE1Nm39uZo/giphy.gif"  // Spinning Cat
+                                ];
+
+                                for (let i = 0; i < gifCount; i++) {
+                                    const gif = document.createElement('img');
+                                    gif.src = gifs[Math.floor(Math.random() * gifs.length)]; // Random gif
+                                    gif.alt = "Random Gif";
+                                    gif.classList.add('additional-gif');
+                                    const { x, y } = getRandomPosition();
+                                    gif.style.left = `${x}px`;
+                                    gif.style.top = `${y}px`;
+
+                                    document.body.appendChild(gif);
+
+                                    // Stagger the appearance of the gifs
+                                    setTimeout(() => {
+                                        gif.classList.add('show');
+                                    }, Math.random() * 1000 + 1000); // Random delay for each gif
+                                }
+                            }, 2000); // Delay before showing additional gifs
                         }
                     }, interval);
                 }, 1000);
-            }, 2000);
+            }, 5000);
         }
     </script>
     <script src="https://www.youtube.com/iframe_api"></script>
