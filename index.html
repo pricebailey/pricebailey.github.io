@@ -73,7 +73,8 @@
             color: white;
             font-size: 3em;
             text-align: center;
-            opacity: 1; /* Make it immediately visible */
+            opacity: 0; /* Hide message initially */
+            visibility: hidden; /* Hide it behind cookie consent */
         }
 
         #dancing-dog {
@@ -82,6 +83,7 @@
             margin-top: 40px;
             opacity: 0;
             transform: translateY(20px);
+            position: absolute; /* Position it absolutely to avoid shifting text */
             transition: opacity 1s ease, transform 0.5s ease;
         }
 
@@ -145,7 +147,8 @@
                 setTimeout(() => {
                     // Show message and trigger animation
                     const message = document.getElementById('message');
-                    message.style.opacity = 1; // Keep message visible
+                    message.style.visibility = 'visible'; // Make message visible
+                    message.style.opacity = 1; // Make message visible immediately
 
                     // Start confetti
                     const duration = 3000;
@@ -167,7 +170,7 @@
                         }
                     }, interval);
                 }, 1000);
-            }, 5000);
+            }, 2000);
         }
     </script>
     <script src="https://www.youtube.com/iframe_api"></script>
@@ -186,7 +189,7 @@
         </div>
     </div>
 
-    <!-- Final Message (Immediately visible) -->
+    <!-- Final Message (Initially hidden behind the consent) -->
     <div class="message" id="message">
         <p><strong>Happy Mother's Day</strong></p>
         <p><small></small></p>
