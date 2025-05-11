@@ -104,7 +104,7 @@
     .message p {
       font-family: 'Sacramento', cursive;
       font-size: 4rem;
-      color: #FFD700;
+      color: white;
       text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.6);
     }
   </style>
@@ -222,8 +222,8 @@
 
                 document.getElementById('message').appendChild(img);
 
-                // Added more delay (around 1 second) between each GIF's appearance
-                const delay = 800 + i * 1000 + Math.random() * 700;
+                // Added more delay (around 1.5 to 2 seconds) between each GIF's appearance
+                const delay = 800 + i * 1500 + Math.random() * 700;
 
                 setTimeout(() => {
                   img.classList.add('show');
